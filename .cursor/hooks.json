@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "hooks": {
+    "preCommand": [
+      {
+        "command": "bash ./hooks/block-critical.sh"
+      }
+    ]
+  }
+}

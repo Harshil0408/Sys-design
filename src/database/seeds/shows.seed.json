@@ -1,0 +1,35 @@
+[
+  {
+    "id": "show_101",
+    "cinemaId": "cine_pvr_phoenix",
+    "movieTitle": "Dune: Part Two",
+    "screenNumber": 1,
+    "format": "IMAX 2D",
+    "language": "English",
+    "startTime": "2026-11-06T14:30:00Z",
+    "price": 450,
+    "availableSeats": 120
+  },
+  {
+    "id": "show_102",
+    "cinemaId": "cine_pvr_phoenix",
+    "movieTitle": "Oppenheimer",
+    "screenNumber": 2,
+    "format": "4DX",
+    "language": "English",
+    "startTime": "2026-11-06T18:00:00Z",
+    "price": 550,
+    "availableSeats": 85
+  },
+  {
+    "id": "show_103",
+    "cinemaId": "cine_cinepolis_ahmedabad",
+    "movieTitle": "Interstellar (Re-release)",
+    "screenNumber": 3,
+    "format": "2D",
+    "language": "English",
+    "startTime": "2026-11-06T20:15:00Z",
+    "price": 320,
+    "availableSeats": 140
+  }
+]

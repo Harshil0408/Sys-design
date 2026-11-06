@@ -1,0 +1,15 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: bms-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: bookmyshow
+    volumes:
+      - mongo-data:/data/db
+      - ./init-replica.js:/docker-entrypoint-initdb.d/init-replica.js:ro
+
+volumes:
+  mongo-data:

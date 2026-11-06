@@ -1,0 +1,30 @@
+[
+  {
+    "id": "cine_pvr_phoenix",
+    "cityId": "city_mumbai",
+    "name": "PVR ICON: Phoenix Palladium",
+    "location": "Lower Parel, Mumbai",
+    "totalScreens": 7
+  },
+  {
+    "id": "cine_inox_nariman",
+    "cityId": "city_mumbai",
+    "name": "INOX: CR2 Nariman Point",
+    "location": "Nariman Point, Mumbai",
+    "totalScreens": 5
+  },
+  {
+    "id": "cine_pvr_delhi_select",
+    "cityId": "city_delhi",
+    "name": "PVR: Select CITYWALK Saket",
+    "location": "Saket, New Delhi",
+    "totalScreens": 6
+  },
+  {
+    "id": "cine_cinepolis_ahmedabad",
+    "cityId": "city_ahmedabad",
+    "name": "Cinepolis: Nexus Ahmedabad One",
+    "location": "Vastrapur, Ahmedabad",
+    "totalScreens": 8
+  }
+]

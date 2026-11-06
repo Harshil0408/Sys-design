@@ -1,0 +1,6 @@
+[
+  { "id": "city_mumbai", "name": "Mumbai", "slug": "mumbai", "state": "Maharashtra", "isActive": true },
+  { "id": "city_delhi", "name": "Delhi-NCR", "slug": "delhi-ncr", "state": "Delhi", "isActive": true },
+  { "id": "city_bengaluru", "name": "Bengaluru", "slug": "bengaluru", "state": "Karnataka", "isActive": true },
+  { "id": "city_ahmedabad", "name": "Ahmedabad", "slug": "ahmedabad", "state": "Gujarat", "isActive": true }
+]

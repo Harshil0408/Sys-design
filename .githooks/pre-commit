@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "BLOCKED: Automated git commit is prohibited. Commit manually as user." >&2
+exit 1
