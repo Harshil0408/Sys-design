@@ -32,7 +32,7 @@ These rules strictly apply across all agents, subagents, and modes (including Au
 - Never read, display, edit, or commit `.env`, credentials, or private keys.
 
 ## 8. Workspace Boundary
-- Strictly stay inside `d:\sys-design`. No navigating to parent or system drives.
+- Strictly stay inside `D:\Something top`. No navigating to parent or system drives.
 
 ## 9. System and Process Protection
 - No privilege escalation (`sudo`, `runas`, admin rights).

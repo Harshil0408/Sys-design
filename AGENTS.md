@@ -31,7 +31,7 @@ This is the central entry point for all AI agents and subagents operating in thi
 | External Network | Outbound calls blocked (`curl`, `wget`, `ssh`, API requests). |
 | Packages & Installs | No global or unapproved package installations. Use `pnpm`. |
 | Secrets & Env | No access, printing, or editing of `.env` or credential files. |
-| Boundaries | Strictly stay inside `d:\sys-design`. No escaping root directory. |
+| Boundaries | Strictly stay inside `D:\Something top`. No escaping root directory. |
 | Permissions | No privilege escalation (`sudo`, `runas`, registry changes). |
 
 ## 4. Repository Structure
