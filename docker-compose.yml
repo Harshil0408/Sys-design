@@ -4,4 +4,3 @@ include:
   - docker/mongo/compose.yaml
   - docker/redis/compose.yaml
   - docker/elastic/compose.yaml
-  - docker/nginx/compose.yaml

@@ -11,9 +11,6 @@
     "start": "node dist/server.js",
     "lint": "oxlint .",
     "bench": "tsx scripts/run-bench.ts",
-    "cluster:start": "pnpm build && pm2 start ecosystem.config.cjs",
-    "cluster:stop": "pm2 stop bms-api",
-    "cluster:reload": "pm2 reload bms-api",
     "seed": "tsx scripts/seed-db.ts",
     "infra:up": "docker compose up -d",
     "infra:down": "docker compose down"
