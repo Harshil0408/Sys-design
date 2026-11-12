@@ -1,7 +1,46 @@
 import * as readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { execSync, spawn } from "node:child_process";
+import { exec, execSync, spawn } from "node:child_process";
 import * as path from "node:path";
+import * as os from "node:os";
+
+let prevCpuTimes = getAverageCpuTimes();
+
+function getAverageCpuTimes() {
+  const cpus = os.cpus();
+  let idle = 0;
+  let total = 0;
+  for (const cpu of cpus) {
+    for (const type in cpu.times) {
+      total += (cpu.times as Record<string, number>)[type];
+    }
+    idle += cpu.times.idle;
+  }
+  const count = cpus.length || 1;
+  return { idle: idle / count, total: total / count };
+}
+
+function getHostMetrics(): { cpuStr: string; ramStr: string } {
+  const currentTimes = getAverageCpuTimes();
+  const idleDiff = currentTimes.idle - prevCpuTimes.idle;
+  const totalDiff = currentTimes.total - prevCpuTimes.total;
+  prevCpuTimes = currentTimes;
+
+  const cpuUsage = totalDiff > 0 ? (1 - idleDiff / totalDiff) * 100 : 0;
+  const cpuPercent = Math.max(0, Math.min(100, cpuUsage)).toFixed(1);
+
+  const totalMem = os.totalmem();
+  const freeMem = os.freemem();
+  const usedMem = totalMem - freeMem;
+  const ramPercent = ((usedMem / totalMem) * 100).toFixed(1);
+  const usedGb = (usedMem / (1024 * 1024 * 1024)).toFixed(1);
+  const totalGb = (totalMem / (1024 * 1024 * 1024)).toFixed(1);
+
+  return {
+    cpuStr: `${cpuPercent}%`,
+    ramStr: `${ramPercent}% (${usedGb}/${totalGb}GB)`,
+  };
+}
 
 async function checkK6Installed(): Promise<boolean> {
   try {
@@ -78,12 +117,13 @@ async function main() {
   console.log("\n" + "=".repeat(62));
   console.log("   LIVE LOAD TEST DASHBOARD");
   console.log("=".repeat(62));
-  // Print initial 4 lines
+  // Print initial 5 lines
   process.stdout.write("┌────────────────────────────────────────────────────────────┐\n");
   process.stdout.write("│ ⚡ Target Endpoint  : " + endpointLabel.padEnd(35) + " │\n");
   process.stdout.write("│ 📊 Requests Processed: 0 reqs (0.00/s)                     │\n");
   process.stdout.write("│ ⏳ Time Elapsed      : 0s / " + String(durationSec) + "s [░░░░░░░░░░░░░░░░░░░░] 0%   │\n");
   process.stdout.write("│ 👥 Virtual Users     : " + (vus + " Active VUs").padEnd(35) + " │\n");
+  process.stdout.write("│ 💻 Host CPU / RAM   : Calculating...                      │\n");
   process.stdout.write("└────────────────────────────────────────────────────────────┘\n");
 
   const startTime = Date.now();
@@ -97,18 +137,21 @@ async function main() {
     const percent = Math.min(100, Math.floor((elapsedSec / durationSec) * 100));
     const rps = elapsedSec > 0 ? (completed / elapsedSec).toFixed(1) : "0.0";
     const bar = renderProgressBar(percent, 20);
+    const metrics = getHostMetrics();
 
     const line1 = `│ ⚡ Target Endpoint  : ${endpointLabel.slice(0, 35).padEnd(35)} │`;
     const line2 = `│ 📊 Requests Processed: ${(completed.toLocaleString() + " reqs (" + rps + "/s)").padEnd(35)} │`;
     const line3 = `│ ⏳ Time Elapsed      : ${(`${elapsedSec}s / ${durationSec}s [${bar}] ${percent}%`).padEnd(35)} │`;
     const line4 = `│ 👥 Virtual Users     : ${(vus + " Active VUs").padEnd(35)} │`;
+    const line5 = `│ 💻 Host CPU / RAM   : ${(`CPU: ${metrics.cpuStr} | RAM: ${metrics.ramStr}`).slice(0, 35).padEnd(35)} │`;
 
-    // Move cursor up 5 lines and rewrite lines in place without scrolling
-    process.stdout.write("\x1b[5A\r");
+    // Move cursor up 6 lines and rewrite lines in place without scrolling
+    process.stdout.write("\x1b[6A\r");
     process.stdout.write(line1 + "\n\r");
     process.stdout.write(line2 + "\n\r");
     process.stdout.write(line3 + "\n\r");
     process.stdout.write(line4 + "\n\r");
+    process.stdout.write(line5 + "\n\r");
     process.stdout.write("└────────────────────────────────────────────────────────────┘\n\r");
   };
 
